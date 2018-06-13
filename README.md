@@ -24,7 +24,7 @@ Uncomment the version of your preference
 `$ docker-compose up -d`
 
 #### Internal Access 
-URL: http://localhost:1000
+http://localhost:1000
 > I use the port `1000` for NGINX
 
 > PHP7 `9001`
@@ -33,5 +33,7 @@ URL: http://localhost:1000
 
 #### Using NGINX to Access your project
 Edit the `config/nginx.conf` and uncomment all the seccond `server`
+
 In docker-compose.yml uncomment the `#- 1001:81`
-Change the `/some/path/file` of `docker-compose.yml` and `config/nginx.conf`
+
+Change `/some/path/file` to `directory_of_your_project` from `docker-compose.yml` and `config/nginx.conf`
