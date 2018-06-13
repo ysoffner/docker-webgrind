@@ -36,7 +36,6 @@ services:
     
     # Configs
       - ./configs/php.ini:/usr/local/etc/php/php.ini
-      - ./configs/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     
     # Repository of WebGrind
       - ./webgrind/:/var/www/webgrind/
