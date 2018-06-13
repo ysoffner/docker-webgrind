@@ -1,0 +1,27 @@
+FROM php:7.1.18-fpm-alpine
+
+LABEL Maintainer="Yuri Soffner <ysoffner@gmail.com>" \
+      Description="Lightweight php 7.1.18 container based on alpine with xDebug enabled & composer installed." \
+      Description="11 line - Need to generate Webgrind Call Graph" \
+      org.label-schema.name="php-7.1.18-xdebug-alpine" \
+      org.label-schema.schema-version="1.0.0"
+
+USER root
+
+RUN apk add --update --no-cache git mysql-client curl libmcrypt libmcrypt-dev \
+    libxml2-dev freetype-dev libpng-dev libjpeg-turbo-dev g++ make autoconf \
+    python python-dev py-pip graphviz ttf-freefont build-base zlib-dev \
+    && pip install virtualenv \
+    && docker-php-source extract \
+    && pecl install xdebug redis \
+    && docker-php-ext-enable xdebug redis \
+    && docker-php-source delete \
+    && docker-php-ext-install mcrypt pdo_mysql soap mysqli zip\
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && echo "xdebug.profiler_enable = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.profiler_output_name = xdebug.out.%t" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.profiler_output_dir = /tmp" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.profiler_enable_trigger = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && rm -rf /tmp/*
+
+WORKDIR /var/www

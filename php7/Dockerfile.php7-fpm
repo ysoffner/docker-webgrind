@@ -1,0 +1,30 @@
+FROM php:7.1.18-fpm
+
+ENV REDIS=redis-4.0.2
+#ARG REDIS
+
+RUN apt-get update && \
+apt-get install -y \
+zlib1g-dev \
+wget \
+vim \
+iputils-ping
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug \
+&& echo 'xdebug.remote_port=9000' >> /usr/local/etc/php/php.ini \
+&& echo 'xdebug.remote_enable=1' >> /usr/local/etc/php/php.ini \
+&& echo 'xdebug.remote_connect_back=1' >> /usr/local/etc/php/php.ini
+
+RUN docker-php-ext-install mysqli && \
+docker-php-ext-enable mysqli && \
+docker-php-ext-install pdo_mysql && \
+docker-php-ext-enable pdo_mysql && \
+docker-php-ext-install zip && \
+docker-php-ext-enable zip && \
+cd /tmp/ && \
+wget https://pecl.php.net/get/$REDIS.tgz && \
+    tar xfz $REDIS.tgz && \
+    mkdir -p /usr/src/php/ext/redis/ && \
+    cp -a $REDIS/* /usr/src/php/ext/redis/ && \
+    docker-php-ext-install redis && \
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
