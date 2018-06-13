@@ -3,8 +3,8 @@
 ##### Install in the same directory
 If you want to install in the same directory of this repository, do it:
 ```
-git clone xxxxxxxxxxxxxxxxx
-cd xxxxxxxxxxxxxx
+git clone https://github.com/ysoffner/docker-webgrind.git
+cd docker-webgrind
 
 bash configs/webgrind.sh
 ```
