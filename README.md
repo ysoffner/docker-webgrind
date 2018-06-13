@@ -20,3 +20,5 @@ Uncomment the version of your preference
     #fastcgi_pass ysoffner-server-php5:9000;
     fastcgi_pass ysoffner-server-php7:9000;
 ```
+#### Init your compose
+`$ docker-compose up -d`
