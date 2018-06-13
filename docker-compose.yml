@@ -4,6 +4,9 @@ services:
   ysoffner-server-nginx:
     container_name: ysoffner-server-nginx
     image: nginx:latest
+    depends_on:
+      - ysoffner-server-php7
+      - ysoffner-server-php5
     networks:
       - webgrind
     ports:
@@ -11,7 +14,7 @@ services:
       #- 1001:81
     volumes:
     # Path
-    # - /file/path/to_analyse:/some/path/file
+      # - /file/path/to_analyse:/some/path/file
     
     # Configs
       - ./configs/nginx.conf:/etc/nginx/nginx.conf
@@ -28,10 +31,12 @@ services:
     ports:
       - 9001:9000
     volumes:
-    # - /file/path/to_analyse:/some/path/file
+    # Path
+      # - /file/path/to_analyse:/some/path/file
     
     # Configs
       - ./configs/php.ini:/usr/local/etc/php/php.ini
+      - ./configs/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     
     # Repository of WebGrind
       - ./webgrind/:/var/www/webgrind/
@@ -45,10 +50,12 @@ services:
     ports:
       - 9002:9000
     volumes:
-    # - /file/path/to_analyse:/some/path/file
-    
+    # Path
+      # - /file/path/to_analyse:/some/path/file
+
     # Configs
       - ./configs/php.ini:/usr/local/etc/php/php.ini
+      - ./configs/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     
     # Repository of WebGrind
       - ./webgrind/:/var/www/webgrind/
