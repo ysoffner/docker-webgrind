@@ -8,9 +8,10 @@ services:
       - webgrind
     ports:
       - 1000:80
+      #- 1001:81
     volumes:
     # Path
-    # - /file/path/to_analyse
+    # - /file/path/to_analyse:/some/path/file
     
     # Configs
       - ./configs/nginx.conf:/etc/nginx/nginx.conf
@@ -27,7 +28,7 @@ services:
     ports:
       - 9001:9000
     volumes:
-    # - /file/path/to_analyse
+    # - /file/path/to_analyse:/some/path/file
     
     # Configs
       - ./configs/php.ini:/usr/local/etc/php/php.ini
@@ -44,7 +45,7 @@ services:
     ports:
       - 9002:9000
     volumes:
-    # - /file/path/to_analyse
+    # - /file/path/to_analyse:/some/path/file
     
     # Configs
       - ./configs/php.ini:/usr/local/etc/php/php.ini
