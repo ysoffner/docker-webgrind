@@ -1,0 +1,24 @@
+FROM php:7.2.6-fpm-alpine
+
+LABEL Maintainer="Yuri Soffner <ysoffner@gmail.com>" \
+      Description="Lightweight php 7.2.6 container based on alpine with xDebug enabled & composer installed."
+
+RUN apk add --update --no-cache tzdata git mysql-client curl libmcrypt libmcrypt-dev \
+    libxml2-dev freetype-dev libpng-dev libjpeg-turbo-dev g++ make autoconf \
+    python python-dev py-pip graphviz ttf-freefont build-base zlib-dev \
+    && pip install virtualenv \
+    && docker-php-source extract \
+    && pecl install xdebug redis \
+    && docker-php-ext-enable xdebug redis \
+    && docker-php-source delete \
+    && docker-php-ext-install pdo_mysql soap mysqli zip \
+    && ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
+    && echo "America/Sao_Paulo" > /etc/timezone && date \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && echo "xdebug.profiler_enable = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.profiler_output_name = xdebug.out.%t" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.profiler_output_dir = /tmp" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.profiler_enable_trigger = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && rm -rf /tmp/*
+
+WORKDIR /var/www
