@@ -24,7 +24,7 @@ script:
   - if [[ $(docker exec -ti ysoffner-server-php7.2 php -i |grep xdebug.remote_enable |awk '{print $3}') == 'On' ]]; then
       echo 'Default is Off' && exit 0;
     fi
-
+  - curl -IL http://localhost:1000
 
 notifications:
   email:
