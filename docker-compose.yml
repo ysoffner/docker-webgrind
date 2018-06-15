@@ -14,6 +14,7 @@ services:
       - 1000:80
     volumes:
     # Path
+      - $PACKAGE:$PACKAGE
     
     # Configs
       - ./configs/nginx.conf:/etc/nginx/nginx.conf
@@ -29,10 +30,11 @@ services:
     ports:
       - 9001:9000
     volumes:
+    # Path
+      - $PACKAGE:$PACKAGE
+
     # Logs
       - ./logs_errors/php5:/error/
-
-    # Path
 
     # Configs
       - ./configs/php.ini:/usr/local/etc/php/php.ini
@@ -50,11 +52,12 @@ services:
     ports:
       - 9002:9000
     volumes:
+    # Path
+      - $PACKAGE:$PACKAGE
+
     # Logs
       - ./logs_errors/php7.1:/error/
 
-    # Path
-    
     # Configs
       - ./configs/php.ini:/usr/local/etc/php/php.ini
       - ./configs/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
@@ -71,11 +74,12 @@ services:
     ports:
       - 9003:9000
     volumes:
+    # Path
+      - $PACKAGE:$PACKAGE
+    
     # Logs
       - ./logs_errors/php7.2:/error/
 
-    # Path
-    
     # Configs
       - ./configs/php.ini:/usr/local/etc/php/php.ini
       - ./configs/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

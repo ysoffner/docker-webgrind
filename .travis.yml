@@ -1,0 +1,23 @@
+sudo: required
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.21.2
+  - PACKAGE=/var/www
+
+services:
+  - docker
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - bash configs/webgrind.sh
+  - ls -l
+
+script:
+  - docker version
+  - docker-compose version
+  - $PACKAGE docker-compose up -d
+  - docker-compose ps
+  - echo "Travis:" $TRAVIS_TEST_RESULT
