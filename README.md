@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ysoffner/docker-webgrind.svg?branch=master)](https://travis-ci.org/ysoffner/docker-webgrind)
+
 ### Docker Compose to use webgrind in different php versions
 
 ##### Install in the same directory
@@ -38,4 +40,4 @@ Edit the `config/nginx.conf` and uncomment all the seccond `server`, and edit fo
 
 In docker-compose.yml create port in nginx service
 
-Change the `/some/path/file` of `docker-compose.yml` and `config/nginx.conf`
+Change the `/some/path/file` of `config/nginx.conf` and set the variable `$PACKAGE` with the same project directory. Example: `PACKAGE=/var/www/test docker-compose up -d` (see in .travis.yml).
