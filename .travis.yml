@@ -2,7 +2,6 @@ sudo: required
 
 env:
   - DOCKER_COMPOSE_VERSION=1.21.2
-  - PACKAGE=/var/www
 
 services:
   - docker
@@ -18,6 +17,14 @@ before_install:
 script:
   - docker version
   - docker-compose version
-  - $PACKAGE docker-compose up -d
+  - PACKAGE=/var/www docker-compose up -d
   - docker-compose ps
   - echo "Travis:" $TRAVIS_TEST_RESULT
+
+
+notifications:
+  email:
+    recipients:
+      - ysoffner@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always
